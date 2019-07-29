@@ -13,13 +13,17 @@ The project actually has 2 apps:
 ## Setup app 1: Magic Leap
 
 Build in Unity 2019.1.6f1. Note, if you plan to update to 2019.2, there seems to be some adjustments to the Magic Leap integration, [Read more](https://creator.magicleap.com/learn/guides/unity-setup)
+
 The project includes [Tween](https://assetstore.unity.com/packages/tools/animation/tween-55983) by [Jeff Johnson](https://www.digitalruby.com/unity-plugins/) and Magic Leap integration.
+
 We also used [OSCsimpl](https://assetstore.unity.com/packages/tools/input-management/osc-simpl-53710) to sync data between the iPhone (Apple Watch heart rate) and the ML, but you need to buy and install it if you want that part to work.
+
 To run the project, open the scene: `Assets/_project/main`
 
-Though most of the Magic Leap integration should be done, you should still follow through the setup described here:
-[Unity Setup](https://creator.magicleap.com/learn/guides/unity-setup)
-Especially, you need to generate and add your own ML certificate
+
+Though most of the Magic Leap integration should be done, you should still follow through the setup described here: [Unity Setup](https://creator.magicleap.com/learn/guides/unity-setup)
+
+Especially, you'll need to generate and add your own ML certificate
 
 ### Usage
 
@@ -42,16 +46,25 @@ Especially, you need to generate and add your own ML certificate
 
 ## Setup app 2: iPhone / Apple Watch
 If you don't do app 2, the only thing you're missing out on, is our Apple Watch integration (and to be fair, it's not the most crazy experience, when it's set up. At its current state it simply changes the opacity of the hued video depending on your heart rate).
+
 You need OSCsimpl + an extra iPhone + an Apple Watch
+
 We aren't going to go into too much details, with the overall app. Hint, buy this unity package: [Apple Watch Kit](https://assetstore.unity.com/packages/templates/systems/apple-watch-kit-88245) ... done
 
 ### OSCsimpl
 
 We aren't including OSCsimpl itself, but our setup is included, so if you buy and install it, then you should be able to work with our integration.
-On the iPhone/Apple Watch side you'd want to first of all create an app that reads the heart rate. The Unity [Apple Watch Kit](https://assetstore.unity.com/packages/templates/systems/apple-watch-kit-88245) got us started really quick, though it comes with a price. Then on th iPhone side you integrate OSC as well and simply broadcast the raw heart rate values to the IP adress of the Magic Leap. If OSCsimpl is installed on the Magic Leap you should already be able to see the IP if you look at the ML controller while inside the ML experience.
+
+On the iPhone/Apple Watch side you'd want to first of all create an app that reads the heart rate. The Unity [Apple Watch Kit](https://assetstore.unity.com/packages/templates/systems/apple-watch-kit-88245) got us started really quick, though it comes with a price. Then on the iPhone side you integrate OSC as well and simply broadcast the raw heart rate values to the IP adress of the Magic Leap with the OSC adresss "/biodata".
+
+If OSCsimpl is installed on the Magic Leap you should already be able to see the IP if you look at the ML controller while inside the ML experience.
+
+### Usage
+
+The Magic Leap will be waiting for data that's broadcasted to it's local IP (written on the controller) +  the OSC adress "/biodata". As soon as your iPhone app starts broadcasting the Magic Leap will start using the data. The heart rate is also displayed on the controller for debuggins sake.
 
 ## Shaders
 
 The project relies on 2 shaders:
-- A heavily modified version of the rainbow shader described [here](https://forum.unity.com/threads/solved-gradient-rainbow-shader.449080/) for the UI controls.
+- A heavily modified version of the rainbow shader described [here](https://forum.unity.com/threads/solved-gradient-rainbow-shader.449080/) for the UI on the ML controller.
 - A heavily modified version of the [HSLRangeShader](https://github.com/greggman/hsva-unity/blob/master/Assets/Shaders/HSLRangeShader.shader) used to modify the color spectrum of the live camera feed.
