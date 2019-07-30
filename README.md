@@ -18,7 +18,7 @@ The project includes [Tween](https://assetstore.unity.com/packages/tools/animati
 
 We also used [OSCsimpl](https://assetstore.unity.com/packages/tools/input-management/osc-simpl-53710) to sync data between the iPhone (Apple Watch heart rate) and the ML, but you need to buy and install it if you want that part to work.
 
-To run the project, open the scene: `Assets/_project/main`
+To run the project, open the scene: `Assets/_project/01Scenes/main`
 
 
 Though most of the Magic Leap integration should be done, you should still follow through the setup described here: [Unity Setup](https://creator.magicleap.com/learn/guides/unity-setup)
@@ -53,15 +53,27 @@ We aren't going to go into too much details, with the overall app. Hint, buy thi
 
 ### OSCsimpl
 
-We aren't including OSCsimpl itself, but our setup is included, so if you buy and install it, then you should be able to work with our integration.
+We aren't including OSCsimpl itself, but our setup is included, so if you buy and install it, then you should be able to work with our integration with some small adjustments.
 
-On the iPhone/Apple Watch side you'd want to first of all create an app that reads the heart rate. The Unity [Apple Watch Kit](https://assetstore.unity.com/packages/templates/systems/apple-watch-kit-88245) got us started really quick, though it comes with a price. Then on the iPhone side you integrate OSC as well and simply broadcast the raw heart rate values to the IP adress of the Magic Leap with the OSC adresss "/biodata".
+1. Import the OSCsimpl plugin into this repository project
+2. Uncomment the commented out chunk of code inside **OscSender.cs** and **OscReceiver.cs**
+3. Add the OSCin.cs script to the empty (and disabled) **OSCin** gameObject (it's nested inside the **OSC** gameObject)
+4. In the inspector in the OSCin script component fold out the "Mappings" area and click **Add**
+5. Name it "/biodata" and set the mapping to **int**
+6. Click the plus button at the bottom of the mapping and drag the parent gameObject **OSC** into the slot.
+7. In the function dropdown select OscReceiver.ReceiveInt
 
-If OSCsimpl is installed on the Magic Leap you should already be able to see the IP if you look at the ML controller while inside the ML experience.
+Your Magic Leap is now configured to receive OSC data as integers on its local IP on port 7000 with the "/biodata" mapping.
+
+On the iPhone/Apple Watch side you'd want to first of all create an app that reads the heart rate. The Unity [Apple Watch Kit](https://assetstore.unity.com/packages/templates/systems/apple-watch-kit-88245) got us started really quick, though it comes with a price. Then you integrate OSC here as well and simply broadcast the raw heart rate values to the IP adress of the Magic Leap with the OSC adresss "/biodata".
+
+Check out the **OscSender.cs** script for a simple test example that sends random integers every second. If you don't have an extra iPhone and/or apple watch, you could run this script from your computer as well, just to see it working.
 
 ### Usage
 
-The Magic Leap will be waiting for data that's broadcasted to it's local IP (written on the controller) +  the OSC adress "/biodata". As soon as your iPhone app starts broadcasting the Magic Leap will start using the data. The heart rate is also displayed on the controller for debuggins sake.
+The Magic Leap will be waiting for data that's broadcasted to it's local IP.
+
+You can find the Magic Leaps IP if you enter the ML app and look at the controller. As soon as your iPhone app starts broadcasting to the "/biodata" mapping the Magic Leap will start using the data. The heart rate is also displayed on the controller for debuggings sake.
 
 ## Shaders
 
