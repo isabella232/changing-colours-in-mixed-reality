@@ -1,82 +1,83 @@
-# Rather than augment on top, could we subtract (on top)?
+# Changing Colours in Mixed Reality: Challenges and Insights
 
-This is an open repository for an experiment made in collaboration between Molamil and **SPACE10**. It explores, using exisiting technology, how perception can be changed at realtime conscious or subconsicious to a user.
-With AR technology we usually add to the world. We wanted to use it to play with how it feels to subtract from the world.
+![Hero image/GIF for the experiment](http://www.panix.com/~mshaw/images/Photos-12/placeholder.jpg)
 
-Want to try the experiment yourself? Download the source files here and get started below.
+This is an open repository for an experiment made in collaboration between MolaLAB and **SPACE10** using the Magic Leap One headset. With augmented- and mixed reality we usually add stuff to the world. With this experiment, we wanted to playfully investigate how we can use AR to simply manipulate or subtract elements in the world.
+
+Want to try the experiment yourself? Download the source files [here](https://github.com/space10-community/subtractor-experiment/archive/master.zip) and Get Started below.
 
 ## Overview
-The project actually has 2 apps:
-1. The Magic Leap experience, where a live camera feed is overlayed on both eyes at almost realtime. Using the ML controller you can modify the cameras color spectrum, select the part of the colors to modify and then only paint thos modified colors in front of the eye.
-2. An iPhone /Apple Watch app, that streams heart rate data to the Magic Leap, as an external factor: Modifying the users perception based on their own body input, but without the users' awareness. The heart rate shouldn't be considered a really relevant factor though. We chose to use it, as it's easily available. It's really unlikely, though, that the heart rate can be used to say anything meaningful about the users' current mood (unless it's 0).
+The experiment has two components to it:
 
-## Setup app 1: Magic Leap
+1. The primary Magic Leap experience, where a live camera feed from the device is overlayed on both eyes at almost real-time. Using the Magic Leap One Control you're able to modify the camera's color spectrum, sample colors spectrums to modify and then only paint those modified colors in front of the eye.
 
-Build in Unity 2019.1.6f1. Note, if you plan to update to 2019.2, there seems to be some adjustments to the Magic Leap integration, [Read more](https://creator.magicleap.com/learn/guides/unity-setup)
+2. A companion iPhone/Apple Watch app that streams heart rate data to the Magic Leap One as passive parameter for modifying the color spectrums instead of manually doing so with the Control. We did this to explore how pure physiological inputs could potentially passively alter everyday experiences of the world without people's being conscious of it.
+
+## Setup: Magic Leap App
+
+Build in Unity 2019.1.6f1.
+*Note, if you plan to update to 2019.2, you likely have to do some [adjustments to the Magic Leap integration](https://creator.magicleap.com/learn/guides/unity-setup).*
 
 The project includes [Tween](https://assetstore.unity.com/packages/tools/animation/tween-55983) by [Jeff Johnson](https://www.digitalruby.com/unity-plugins/) and Magic Leap integration.
 
-We also used [OSCsimpl](https://assetstore.unity.com/packages/tools/input-management/osc-simpl-53710) to sync data between the iPhone (Apple Watch heart rate) and the ML, but you need to buy and install it if you want that part to work.
-
 To run the project, open the scene: `Assets/_project/01Scenes/main`
 
+Though most of the Magic Leap integration should be done, you should still follow through the setup described in the general [Unity Setup](https://creator.magicleap.com/learn/guides/unity-setup) guidelines.
 
-Though most of the Magic Leap integration should be done, you should still follow through the setup described here: [Unity Setup](https://creator.magicleap.com/learn/guides/unity-setup)
+Particularly, it's important that you generate and add your own Magic Leap Developer Certificate.
 
-Especially, you'll need to generate and add your own ML certificate
+### Tutorial
 
-### Usage
+1. Launch the app in the Magic Leap One.
+2. Accept the permission requests.
+3. At this point, you might notice that blue colors painted in AR have replaced red colors in the real world.
+4. Press the top button on the back of the Magic Leap One Control to toggle full video feed on/off. A full feed looks better, but we're compromissing on precision.
+5. Hold the the Magic Leap One Control up in front of you. It shows two labels "Selection" and "Hue/Sat". The small button below the touchpad is how you navigate "Back".
+6. Try tapping close to the "Selection" label on the touchpad. You are now choosing what colors in the world you want to target.
+    - Swiping horisontally changes the selection.
+    - Swiping vertically expands or narrows the color range you're selecting.
+    - The selection changes are reflected in the UI above the Magic Leap One Control.
+    - When you have chosen what color and the range you want to target, press "Back".
+7. Now tap close to the "Hue/Sat" label on the touchpad. You are now choosing what colors in the world your recently selected range should be changed to!
+    - Swiping horisontally changes the hue of the selected color range.
+    - Swiping vertically changes the saturation of the selected color range.
+8. You can go back and forth between Selection and Hue/Sat as much as you like. You'll get the hang of it :)
 
-1. Launch the app in the Magic Leap
-2. Accept the permission requests
-3. Notice that there should be blue colors painted in AR where there are red colors in the real world.
-4. Tap the top button on the back of the controller to toggle full video feed on/off. A full feed looks better, but it's further away from "the future" we're simulating. In reality the goal is to only paint on the part of the world we want to modify/subtract. Sadly we are limited with the ML only streaming from the top left camera, so we don't have stereo video and we don't have video from the pupil of the eye either. ...ok let's continue :)
-5. Look at the remote, it shows 2 labels "Selection" and "Hue/Sat". The small round button under the touchpad is the "back" button.
-  - Selection
-    1. Tap close to the "Selection" label on the touchpad.
-    2. **scrub** sideways on the touchpad to change the selection. Basically you are choosing which color in the real world to target. It can help to google "Hue Gradient" on a desktop and see an actual color spectrum in front of you while you play with this.
-    3. **Scrub** upwards or downwards to widen / narrow the color selection. You should also be able to see the effect reflected in the UI above the controller.
-6. Tap the small round button beneath the touchpad to go a step back
-  - Hue/Sat
-    1. Tap close to the "Hue/Sat" label on the touchpad.
-    2. **scrub** sideways on the touchpad to "hue". You'll see that the selection you did before stays, but now the colors within it are being changed.
-    3. **Scrub** upwards or downwards to oversaturate / desaturate the colors
-7. You can go back and forth between Selection and Hue/Sat as much as you like. You'll get the hang of it :)
-  
+## Setup: iPhone/Apple Watch App
+This part of the experiment connects the main experience with the wearer's body. At its current state, this side component simply changes the opacity of the overlaid video feed depending on your heart rate.
 
-## Setup app 2: iPhone / Apple Watch
-If you don't do app 2, the only thing you're missing out on, is our Apple Watch integration (and to be fair, it's not the most crazy experience, when it's set up. At its current state it simply changes the opacity of the hued video depending on your heart rate).
+### Requirements
+- [OSCsimpl](https://assetstore.unity.com/packages/tools/input-management/osc-simpl-53710) for Unity
+- [Apple Watch Kit](https://assetstore.unity.com/packages/templates/systems/apple-watch-kit-88245) for Unity
+- An iPhone (any model compatible with an Apple Watch)
+- An Apple Watch (any model)
 
-You need OSCsimpl + an extra iPhone + an Apple Watch
+OSCsimpl is used to sync data between the iPhone and the Magic Leap One. You need to buy and install it if you want this part to work.
 
-We aren't going to go into too much details, with the overall app. Hint, buy this unity package: [Apple Watch Kit](https://assetstore.unity.com/packages/templates/systems/apple-watch-kit-88245) ... done
-
-### OSCsimpl
-
-We aren't including OSCsimpl itself, but our setup is included, so if you buy and install it, then you should be able to work with our integration with some small adjustments.
+### Setup: OSCsimpl
 
 1. Import the OSCsimpl plugin into this repository project
-2. Uncomment the commented out chunk of code inside **OscSender.cs** and **OscReceiver.cs**
-3. Add the OSCin.cs script to the empty (and disabled) **OSCin** gameObject (it's nested inside the **OSC** gameObject)
-4. In the inspector in the OSCin script component fold out the "Mappings" area and click **Add**
-5. Name it "/biodata" and set the mapping to **int**
-6. Click the plus button at the bottom of the mapping and drag the parent gameObject **OSC** into the slot.
+2. Uncomment the commented out chunk of code inside `OscSender.cs` and `OscReceiver.cs`
+3. Add the OSCin.cs script to the empty (and disabled) `OSCin` gameObject (it's nested inside the `OSC` gameObject)
+4. In the inspector in the OSCin script component fold out the "Mappings" area and click "Add".
+5. Name it "/biodata" and set the mapping to `int`
+6. Click the plus button at the bottom of the mapping and drag the parent gameObject `OSC` into the slot.
 7. In the function dropdown select OscReceiver.ReceiveInt
 
 Your Magic Leap is now configured to receive OSC data as integers on its local IP on port 7000 with the "/biodata" mapping.
 
-On the iPhone/Apple Watch side you'd want to first of all create an app that reads the heart rate. The Unity [Apple Watch Kit](https://assetstore.unity.com/packages/templates/systems/apple-watch-kit-88245) got us started really quick, though it comes with a price. Then you integrate OSC here as well and simply broadcast the raw heart rate values to the IP adress of the Magic Leap with the OSC adresss "/biodata".
+On the iPhone/Apple Watch you now need to create an app that reads the heart rate. The Apple Watch Kit got us started really quick, but other kits might work as well. Integrate the OSC here as well and start broadcasting the raw heart rate values to the IP adress of the Magic Leap One with the OSC adresss "/biodata".
 
-Check out the **OscSender.cs** script for a simple test example that sends random integers every second. If you don't have an extra iPhone and/or apple watch, you could run this script from your computer as well, just to see it working.
+Check out the `OscSender.cs` script for a simple test example that sends random integers every second. If you don't have an extra iPhone and/or apple watch, you could run this script from your computer as well, just to see it working.
 
 ### Usage
 
-The Magic Leap will be waiting for data that's broadcasted to it's local IP.
+The Magic Leap One will be waiting for data that's broadcasted to it's local IP.
 
-You can find the Magic Leaps IP if you enter the ML app and look at the controller. As soon as your iPhone app starts broadcasting to the "/biodata" mapping the Magic Leap will start using the data. The heart rate is also displayed on the controller for debuggings sake.
+You can find the Magic Leaps IP if you launch the app on the Magic Leap Ine and look at the Control. As soon as your iPhone app starts broadcasting to the "/biodata" mapping, the Magic Leap will start using the data. The heart rate is also displayed on the Control.
 
 ## Shaders
 
-The project relies on 2 shaders:
-- A heavily modified version of the rainbow shader described [here](https://forum.unity.com/threads/solved-gradient-rainbow-shader.449080/) for the UI on the ML controller.
+The experiment relies on two shaders:
+- A heavily modified version of the rainbow shader described [here](https://forum.unity.com/threads/solved-gradient-rainbow-shader.449080/) for the UI on the Magic Leap One Control.
 - A heavily modified version of the [HSLRangeShader](https://github.com/greggman/hsva-unity/blob/master/Assets/Shaders/HSLRangeShader.shader) used to modify the color spectrum of the live camera feed.
