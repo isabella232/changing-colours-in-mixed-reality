@@ -1,6 +1,6 @@
 # Changing Colours in Mixed Reality: Challenges and Insights
 
-![Hero image/GIF for the experiment](http://www.panix.com/~mshaw/images/Photos-12/placeholder.jpg)
+![Hero image/GIF for the experiment](https://space10.io/content/uploads/2019/08/capture_bitmap_2019_08_16_15_43_08.png)
 
 This is an open repository for an experiment made in collaboration between MolaLAB and **SPACE10** using the Magic Leap One headset. With augmented- and mixed reality we usually add stuff to the world. With this experiment, we wanted to playfully investigate how we can use AR to simply manipulate or subtract elements in the world.
 
